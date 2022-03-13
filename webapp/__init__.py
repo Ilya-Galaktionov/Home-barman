@@ -1,16 +1,12 @@
-from flask import Flask
+from flask import Flask, render_template
 
-app = Flask(__name__)
+def create_app():
+    app = Flask(__name__)
 
-@app.route('/')
-def index():
-    return """
-    <html>
-        <head>
-            <title>Home-barman</title>
-        </head>
-    </htm>
-    """
-
-if __name__ == "__main__":
-    app.run()
+    @app.route('/')
+    def index():
+        page_title = 'Home-barman'
+        return render_template('index.html' ,page_title=page_title)
+    
+    
+    return app
