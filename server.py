@@ -7,6 +7,11 @@ app = Flask(__name__)
 def index():
     return render_template('index.html')
 
+#@app.route('recept')
+#def recept():
+ #   return render_template('your_recept.html')
+
+
 @app.route('/user/<string:name>/<int:id>')
 def user(name, id):
     return "User page:" + name +" - " + str(id)
