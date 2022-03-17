@@ -3,6 +3,7 @@ import requests
 from bs4 import BeautifulSoup
 import time
 from random import randrange
+import json
 
 headers = {
     'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8',
@@ -18,7 +19,7 @@ def get_cocktails_urls(url):
     pagination_count = int(59)
     
     cocktails_urls_list = []
-    for page in range(1, 2):
+    for page in range(pagination_count + 1):
         response = s.get(url=f'https://ru.inshaker.com/cocktails?random_page={page}', headers=headers)
         soup = BeautifulSoup(response.text, 'lxml')
         
@@ -46,30 +47,65 @@ def get_data(file_path):
     with open(file_path) as file:
         urls_list = [line.strip() for line in file.readlines()]
 
-    s = requests.Session()
+    urls_count = len(urls_list)
 
-    for url in urls_list[:1]:
-        response = s.get(url=url, headers=headers)
+    s = requests.Session()
+    result_data = []
+
+    for url in enumerate(urls_list):
+        response = s.get(url=url[1], headers=headers)
         soup = BeautifulSoup(response.text, 'lxml')
 
         cocktail_title = soup.find('div', class_='common-title header').find('h1', class_='common-name').text.strip()
+        
         cocktail_tags = soup.find('ul', class_='tags').find_all('li', class_='item')
+        cocktail_tags_list = []
         for tg in cocktail_tags:
-            cocktails_tags_list = []
             tg_c = tg.get_text().strip()
-            cocktails_tags_list.append(tg_c)
+            cocktail_tags_list.append(tg_c)
+            
         
         cocktail_recipe = soup.find('ul', class_='steps').find_all('li')
-        cocktails_recipe_list = []
+        cocktail_recipe_list = []
         for recipes in cocktail_recipe:
             cocktail_rcp = recipes.get_text().strip()
-            cocktails_recipe_list.append(cocktail_rcp)   
+            cocktail_recipe_list.append(cocktail_rcp)   
         
-        print(cocktails_recipe_list)
+        cocktail_ingredient_tables = soup.find('dl', class_='ingredients').find_all('a', class_='common-good-info')
+        cocktail_ingredient_list = []
+        for ingredient in cocktail_ingredient_tables:
+            cocktail_ing = ingredient.get_text(' ')
+            cocktail_ingredient_list.append(cocktail_ing) 
+        
+
+        cocktail_tools_tables = soup.find('dl', class_='tools').find_all('a', class_='common-good-info')
+        cocktail_tools_list = []
+        for tools in cocktail_tools_tables:
+            cocktail_tool = tools.get_text(' ')
+            cocktail_tools_list.append(cocktail_tool)
+        
+        cocktail_img = f"https://ru.inshaker.com{soup.find('div', class_='image-box desktop').find('img').get('src')}"
+        
+        result_data.append(
+            {
+                'original_url': url[1],
+                'cocktail_title': cocktail_title,
+                'cocktail_tags': cocktail_tags_list,
+                'cocktail_recipe': cocktail_recipe_list,
+                'cocktail_ingredient': cocktail_ingredient_list,
+                'cocktail_tools': cocktail_tools_list,
+                'cocktail_image': cocktail_img
+            }
+        )
+        
+        print(f'Обработал {url[0] + 1}/{urls_count}')
+
+    with open('result.json', 'w', encoding='utf-8') as file:
+        json.dump(result_data, file, indent=4, ensure_ascii=False)
 
 
 def main():
-    # print(get_cocktails_urls(url='https://ru.inshaker.com/cocktails'))
+    get_cocktails_urls(url='https://ru.inshaker.com/cocktails')
     get_data('cocktails_urls.txt')
 
 
