@@ -1,0 +1,21 @@
+body {
+    background: #212529;
+}
+.fw-light{
+color:rgb(255, 0, 221)
+}
+.btn-primary{
+    background-color: red;
+    border-color: red;
+}
+.text-muted{
+    color:white !important;
+
+}
+.btn-primary:hover{
+    background-color: rgba(0, 255, 213, 0.623);
+    border-color: rgba(0, 255, 213, 0.623);
+}
+.form-label{
+    color: green;
+}
