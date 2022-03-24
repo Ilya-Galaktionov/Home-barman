@@ -1,3 +1,1 @@
-import os
-
-SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, '..', 'webapp.db')
+SECRET_KEY = '35436656345gsdfgeMABf:UI&duwfrg'
