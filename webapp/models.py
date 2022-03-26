@@ -8,6 +8,8 @@ db = SQLAlchemy()
 
 
 class User(Base, UserMixin):
+    """Создает модель пользователя в БД
+    """
     __tablename__ = 'Users'
 
     id = Column(Integer, unique=True, primary_key=True)
@@ -26,6 +28,8 @@ class User(Base, UserMixin):
 
 
 class Cocktails(Base):
+    """Создает модель коктейля в БД
+    """
     __tablename__ = 'Cocktails'
 
     id = Column(Integer, unique=True, primary_key=True)
@@ -46,12 +50,3 @@ class Cocktails(Base):
 
 if __name__ == "__main__":
     Base.metadata.create_all(bind=engine)
-
-# class rating(Base):
-#     __tablename__ = 'Rating'
-#     rating = Column(Integer(5))
-#     users_id = Column(Integer, ForeignKey('users.id'))
-#     Cocktails_id = Column(Integer, ForeignKey('Cocktails.id'))
-
-#     def __repr__(self):
-#         return f'<Rating {self.rating}>'
