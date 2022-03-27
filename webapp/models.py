@@ -44,7 +44,7 @@ class Cocktails(Base):
     ingredient = Column(String)
     tools = Column(String)
     image = Column(String, unique=True)
-    commetn = Column(String)
+    commetn = Column(String, nullable=True)
     rating = Column(Float(1), nullable=True)
     author = Column(String, nullable=True)
 
