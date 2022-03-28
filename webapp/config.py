@@ -1,3 +1,5 @@
-import os
+SQLALCHEMY_DATABASE_URI = 'postgresql://rueicqqh:hYlexQ-widfhtrmVt2vQMAbGHWRZz339@balarama.db.elephantsql.com:5432/rueicqqh'
+SQLALCHEMY_BINDS = 'postgresql://rueicqqh:hYlexQ-widfhtrmVt2vQMAbGHWRZz339@balarama.db.elephantsql.com:5432/rueicqqh'
+SQLALCHEMY_TRACK_MODIFICATIONS = False
 
-SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, '..', 'webapp.db')
+SECRET_KEY = '35436656345gsdfgeMABf:UI&duwfrg'
