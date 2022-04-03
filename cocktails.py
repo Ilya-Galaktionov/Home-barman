@@ -1,9 +1,10 @@
-from urllib import response
 import requests
 from bs4 import BeautifulSoup
 import time
 from random import randrange
-import json
+
+from webapp.models import Cocktails
+from webapp.db import db_session
 
 headers = {
     'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8',
@@ -32,7 +33,7 @@ def get_cocktails_urls(url):
             else:
                 cocktails_urls_list.append(c_url)
 
-        time.sleep(randrange(2, 5))
+        time.sleep(randrange(2, 5))   
         print(f'Обработал {page}\{pagination_count}')
 
     with open('cocktails_urls.txt', 'w', encoding='utf-8') as file:
@@ -46,13 +47,10 @@ def get_data(file_path):
     with open(file_path) as file:
         urls_list = [line.strip() for line in file.readlines()]
 
-    urls_count = len(urls_list)
+        s = requests.Session()
 
-    s = requests.Session()
-    result_data = []
-
-    for url in enumerate(urls_list):
-        response = s.get(url=url[1], headers=headers)
+    for url in urls_list:
+        response = s.get(url=url, headers=headers)
         soup = BeautifulSoup(response.text, 'lxml')
 
         cocktail_title = soup.find('div', class_='common-title header').find('h1', class_='common-name').text.strip()
@@ -83,28 +81,23 @@ def get_data(file_path):
 
         cocktail_img = f"https://ru.inshaker.com{soup.find('div', class_='image-box desktop').find('img').get('src')}"
 
-        result_data.append(
-            {
-                'original_url': url[1],
-                'cocktail_title': cocktail_title,
-                'cocktail_tags': cocktail_tags_list,
-                'cocktail_recipe': cocktail_recipe_list,
-                'cocktail_ingredient': cocktail_ingredient_list,
-                'cocktail_tools': cocktail_tools_list,
-                'cocktail_image': cocktail_img
-            }
-        )
+        save_cocktails(url, cocktail_title, cocktail_tags_list, cocktail_recipe_list,
+                        cocktail_ingredient_list, cocktail_tools_list, cocktail_img)
 
-        print(f'Обработал {url[0] + 1}/{urls_count}')
+        # print(f'Обработал {url[0] + 1}/{urls_count}')
 
-    with open('result.json', 'w', encoding='utf-8') as file:
-        json.dump(result_data, file, indent=4, ensure_ascii=False)
+
+def save_cocktails(url, title, tags, recipe, ingredient, tools, image):
+    new_cocktail = Cocktails(url=url, title=title, tags=tags,
+                             recipe=recipe, ingredient=ingredient,
+                             tools=tools, image=image)
+    db_session.add(new_cocktail)
+    db_session.commit()
 
 
 def main():
-    get_cocktails_urls(url='https://ru.inshaker.com/cocktails')
-    # get_data('cocktails_urls.txt')
-
+    # get_cocktails_urls(url='https://ru.inshaker.com/cocktails')
+    get_data('cocktails_urls.txt')
 
 if __name__ == '__main__':
     main()
