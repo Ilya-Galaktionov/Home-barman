@@ -4,7 +4,7 @@ import time
 from random import randrange
 
 from webapp.models import Cocktails
-from webapp.db import db_session
+from webapp.db import db_session, Base, engine
 
 headers = {
     'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8',
@@ -71,7 +71,7 @@ def get_data(file_path):
         cocktail_ingredient_list = []
         for ingredient in cocktail_ingredient_tables:
             cocktail_ing = ingredient.get_text(' ')
-            cocktail_ingredient_list.append(cocktail_ing) 
+            cocktail_ingredient_list.append(cocktail_ing)
 
         cocktail_tools_tables = soup.find('dl', class_='tools').find_all('a', class_='common-good-info')
         cocktail_tools_list = []
