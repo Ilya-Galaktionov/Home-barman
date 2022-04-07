@@ -4,7 +4,7 @@ import logging
 
 from webapp.user.models import User
 from webapp import create_app
-from webapp.db import db_session
+from db import db_session
 
 app = create_app()
 

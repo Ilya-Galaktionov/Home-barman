@@ -1,8 +1,11 @@
 from flask_login import UserMixin
+from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
-from ..db import Base
+from db import Base
 from sqlalchemy import Column, Integer, String
 
+
+db = SQLAlchemy()
 
 class User(Base, UserMixin):
     """Создает модель пользователя в БД
