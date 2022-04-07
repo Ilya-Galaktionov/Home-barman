@@ -2,7 +2,7 @@ from getpass import getpass
 import sys
 import logging
 
-from webapp.models import User
+from webapp.user.models import User
 from webapp import create_app
 from webapp.db import db_session
 
