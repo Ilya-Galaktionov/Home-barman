@@ -19,3 +19,10 @@ color:rgb(255, 0, 221)
 .form-label{
     color: green;
 }
+
+.coctail-img {
+    width: 50%;
+    height: 50%;
+    -o-object-fit: contain;
+    object-fit: contain;
+  }

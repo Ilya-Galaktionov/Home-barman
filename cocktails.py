@@ -3,8 +3,8 @@ from bs4 import BeautifulSoup
 import time
 from random import randrange
 
-from webapp.models import Cocktails
-from webapp.db import db_session, Base, engine
+from webapp.db import db
+from webapp.cocktails.models import Cocktails
 
 headers = {
     'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8',
@@ -91,13 +91,14 @@ def save_cocktails(url, title, tags, recipe, ingredient, tools, image):
     new_cocktail = Cocktails(url=url, title=title, tags=tags,
                              recipe=recipe, ingredient=ingredient,
                              tools=tools, image=image)
-    db_session.add(new_cocktail)
-    db_session.commit()
+    db.session.add(new_cocktail)
+    db.session.commit()
 
 
 def main():
     # get_cocktails_urls(url='https://ru.inshaker.com/cocktails')
     get_data('cocktails_urls.txt')
+
 
 if __name__ == '__main__':
     main()

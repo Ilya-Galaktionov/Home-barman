@@ -3,8 +3,8 @@ import sys
 import logging
 
 from webapp.user.models import User
-from webapp import create_app
-from db import db_session
+from webapp import create_app, db
+
 
 app = create_app()
 
@@ -25,6 +25,6 @@ with app.app_context():
     new_user = User(username=username, role='admin')
     new_user.set_password(password1)
 
-    db_session.add(new_user)
-    db_session.commit()
+    db.session.add(new_user)
+    db.session.commit()
     logging.info(f'Создан пользователь с id={new_user.id}')
