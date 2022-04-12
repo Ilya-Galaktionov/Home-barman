@@ -1,0 +1,33 @@
+{%extends 'base.html' %}
+
+{% block title %}
+Home-Barman
+{% endblock %}
+
+{% block body %}
+<div class="container text-center">
+ 
+</div>
+<div class="row">
+  <div class="col-12 text-center mt-2"><h3>{{ cocktail_id.title }}</h3></div>
+</div>
+
+
+<div class="card-group col-1 m-auto mt-2">
+
+  
+  <div class="card" style="width: 28rem;">
+    
+      <img class="coctail-img" src="{{ cocktail_id.image }}" alt="...">
+    <div class="card-body">
+    
+      <p class="card-text">{{ cocktail_id.tags }}</p>
+      
+    </div>
+  </div>
+  
+  
+</div>
+  
+  
+  {% endblock %}

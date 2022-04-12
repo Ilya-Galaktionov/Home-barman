@@ -1,7 +1,7 @@
 from webapp import create_app
-from cocktails import get_all_cocktails
+from cocktails import get_data
 
 
 app = create_app()
 with app.app_context():
-    get_all_cocktails('webapp/cocktails_urls.txt')
+    get_data('cocktails_urls.txt')
