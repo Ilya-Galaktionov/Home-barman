@@ -9,24 +9,38 @@
           <li class="nav-item">
             <a class="nav-link active" aria-current="page" href="/">Главная страница</a>
           </li>
-          <li class="nav-item">
-            {% if current_user.is_authenticated %}
-            <a class="nav-link" href="{{ url_for('user.logout') }}">Выйти</a>
-            {% else %}
-            <a class="nav-link" href="{{ url_for('user.login') }}">Войти</a>
-            {% endif %}
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{{ url_for('cocktail.recipe') }}">Добавить рецепт</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{{ url_for('user.register') }}">Регистрация</a>
-          </li>
-        </ul>
-        <form class="d-flex">
-          <input class="form-control me-2" type="search" placeholder="Поиск" aria-label="Search">
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('cocktail.recipe') }}">Добавить рецепт</a>
+                </li>
+             
+        </ul>   
+        
+        <form method="POST" action="{{ url_for('cocktail.search')}}" class="d-flex">
+          <input class="form-control me-2" type="serach" placeholder="Поиск" aria-label="Поиск" name="searched">
           <button class="btn btn-outline-success" type="submit">Поиск</button>
         </form>
+        <ul class='navbar-nav'>
+            {% if current_user.is_authenticated %}
+                <li class="nav-item">
+                    <span class="nav-link">Привет, {{ current_user.username }}!</span>
+                </li>
+                {% if current_user.is_admin %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('admin.admin_index') }}">Админка</a>
+                </li>    
+                {% endif %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('user.logout') }}">Выйти</a>
+                </li>    
+            {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('user.register') }}">Регистрация</a>
+                </li>  
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('user.login') }}">Войти</a>
+                </li>
+            {% endif %}
+        </ul>  
       </div>
     </div>
   </nav>
