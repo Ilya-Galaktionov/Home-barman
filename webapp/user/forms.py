@@ -1,5 +1,6 @@
 from typing_extensions import Required
 from flask_wtf import FlaskForm
+from requests import request
 from wtforms import BooleanField, StringField, PasswordField, SubmitField
 from wtforms.validators import DataRequired, Email, EqualTo, ValidationError
 
@@ -7,8 +8,14 @@ from webapp.user.models import User
 
 
 class SearchForm(FlaskForm):
-    searched = StringField('Searched', validators=[DataRequired()], render_kw={"class": "form-control"})
-    submit = SubmitField('Отправить!', render_kw={"class": "btn btn-primary"})
+    search = StringField('q', validators=[DataRequired()], render_kw={"class": "form-control"})
+     
+    def __init__(self, *args, **kwargs):
+        if 'formdata' not in kwargs:
+            kwargs['formdata'] = request.args
+        if 'csrf_enabled' not in kwargs:
+            kwargs['csrf_enabled'] = False
+        super(SearchForm, self).__init__(*args, **kwargs)
 
 
 class LoginForm(FlaskForm):
