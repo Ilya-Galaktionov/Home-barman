@@ -1,15 +1,15 @@
-from typing_extensions import Required
 from flask_wtf import FlaskForm
-from requests import request
+from flask import request
 from wtforms import BooleanField, StringField, PasswordField, SubmitField
 from wtforms.validators import DataRequired, Email, EqualTo, ValidationError
+
 
 from webapp.user.models import User
 
 
 class SearchForm(FlaskForm):
-    search = StringField('q', validators=[DataRequired()], render_kw={"class": "form-control"})
-     
+    q = StringField('serach', validators=[DataRequired()])
+
     def __init__(self, *args, **kwargs):
         if 'formdata' not in kwargs:
             kwargs['formdata'] = request.args

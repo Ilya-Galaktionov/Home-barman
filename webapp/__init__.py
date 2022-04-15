@@ -1,7 +1,6 @@
 from flask import Flask
 from flask_login import LoginManager
 from flask_migrate import Migrate
-from flask_msearch import Search
 
 from webapp.db import db
 from webapp.admin.views import blueprint as admin_blueprint
@@ -23,10 +22,7 @@ def create_app():
     app.register_blueprint(admin_blueprint)
     app.register_blueprint(cocktail_blueprint)
     app.register_blueprint(user_blueprint)
-
-    search = Search(app)
-    search.init_app(app)
-    
+ 
 
     @login_manager.user_loader
     def load_user(user_id):

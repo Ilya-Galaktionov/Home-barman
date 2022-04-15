@@ -26,4 +26,3 @@ def cocktail(id):
     return render_template('cocktails/cocktail.html', cocktail=cocktail)
 
 
-
