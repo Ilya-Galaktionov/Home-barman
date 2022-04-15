@@ -16,13 +16,15 @@ Home-Barman
 <div class="card-group col-1 m-auto mt-2">
 
   
-  <div class="card" style="width: 28rem;">
+  <div  style="width: 50%;">
     
-      <img class="coctail-img" src="{{ cocktail_id.image }}" alt="...">
+      <img class="coctail-img" src="{{ cocktail_id.image }}" alt="..." width="250" height="450">
     <div class="card-body">
     
       <p class="card-text">{{ cocktail_id.tags }}</p>
-      
+      <h3>Описание</h3>
+      <p style="width: 300px;">{{ cocktail_id.recipe }}</p>
+    
     </div>
   </div>
   
