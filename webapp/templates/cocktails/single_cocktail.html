@@ -1,35 +1,40 @@
-{%extends 'base.html' %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 
-{% block title %}
-Home-Barman
-{% endblock %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Home-barman</title>
+</head>
+<!-- Fixed navbar -->
+      {% include 'menu.html' %}
+<body>
+  <br/>
+  <div class="container">
 
-{% block body %}
 <div class="container text-center">
- 
 </div>
 <div class="row">
-  <div class="col-12 text-center mt-2"><h3>{{ cocktail_id.title }}</h3></div>
+  <div class="col-12 text-center mt-2"><h3>{{ my_cocktail.title }}</h3></div>
 </div>
-
-
-<div class="card-group col-1 m-auto mt-2">
-
-  
-  <div  style="width: 50%;">
-    
-      <img class="coctail-img" src="{{ cocktail_id.image }}" alt="..." width="250" height="450">
-    <div class="card-body">
-    
-      <p class="card-text">{{ cocktail_id.tags }}</p>
-      <h3>Описание</h3>
-      <p style="width: 300px;">{{ cocktail_id.recipe }}</p>
-    
+feature/Search_cocktail
+  <div class="row row-cols-1 row-cols-md-3 g-4 cocktail-grid">
+    <div class="col">
+      <div class="card h-100">
+        <img class="cocktail-item-image" src="{{ my_cocktail.image }}" alt="{{ my_cocktail.title }}">
+        <div class="card-body">
+          <h5 class="card-title">{{ my_cocktail.title }}</h5>
+          <p class="card-text">{{ my_cocktail.tags.strip().replace(',', ', ') }}</p>
+          <br/>
+          <p class="card-text">{{ my_cocktail.ingredient.strip().replace(',', ', ') }}</p>
+          <br/>
+          <p class="card-text">{{ my_cocktail.recipe.strip().replace(',', ', ') }}</p>
+          <br/>
+        </div>
+      </div>
     </div>
   </div>
-  
-  
-</div>
-  
-  
-  {% endblock %}

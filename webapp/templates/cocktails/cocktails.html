@@ -1,0 +1,25 @@
+{% block content %}
+<div class="container text-center">
+</div>
+<div class="row">
+  <div class="col-12 text-center mt-2"><h3>Коктейли</h3></div>
+</div>
+  <div class="row row-cols-1 row-cols-md-3 g-4 cocktail-grid">
+    {% for cocktail in cocktails %}
+    <div class="col">
+      <div class="card h-100">
+        <img class="cocktail-item-image" src="{{ cocktail.image }}" alt="{{ cocktail.title }}">
+        <div class="card-body">
+          <h5 class="card-title">{{ cocktail.title }}</h5>
+          <p class="card-text">{{ cocktail.tags }}</p>
+        </div>
+        <div class="card-footer">
+          <a href="{{ url_for('cocktail.single_cocktail', cocktail_id=cocktail.id) }}" class="btn btn-primary">Рецепт</a>
+        </div>
+      </div>
+    </div>
+  
+  {% endfor %}
+</div>
+{% endblock %}
+

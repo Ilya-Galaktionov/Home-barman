@@ -22,6 +22,7 @@ def create_app():
     app.register_blueprint(admin_blueprint)
     app.register_blueprint(cocktail_blueprint)
     app.register_blueprint(user_blueprint)
+    
 
     @login_manager.user_loader
     def load_user(user_id):

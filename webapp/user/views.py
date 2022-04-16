@@ -3,7 +3,7 @@ from flask_login import current_user, login_user, logout_user
 
 
 from webapp.db import db
-from webapp.user.forms import LoginForm, RegistrationForm
+from webapp.user.forms import LoginForm, RegistrationForm, SearchForm
 from webapp.user.models import User
 
 blueprint = Blueprint('user', __name__, url_prefix='/users')
@@ -60,5 +60,11 @@ def process_reg():
         db.session.commit()
         flash('Вы успешно зарегестрировались')
         return redirect(url_for('user.login'))
-    flash('Проверьте введенные данные')
+    else:
+        for field, errors in form.errors.items():
+            for error in errors:
+                flash('Ошибка в поле {}: {}'.format(
+                    getattr(form, field).label.text,
+                    error
+                ))
     return redirect(url_for('user.register'))

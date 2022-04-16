@@ -1,12 +1,24 @@
-{% block title %}
-Search
-{% endblock %}
+{%extends 'base.html' %}
 
-{% block body %}
-<div class="bg-light p-5 rounded">
-    <h1>Navbar example</h1>
-    <p class="lead">This example is a quick exercise to illustrate how the top-aligned navbar works. As you scroll, this navbar remains in its original position and moves with the rest of the page.</p>
-    <a class="btn btn-lg btn-primary" href="/docs/5.1/components/navbar/" role="button">View navbar docs »</a>
-  </div>
-  {% endblock %}
-  
+	<div class="container text-center">
+	</div>
+	<div class="row">
+	  <div class="col-12 text-center mt-2"><h3>Вы искали: {{ searched }}</h3></div>
+	</div>
+	  <div class="row row-cols-1 row-cols-md-3 g-4 cocktail-grid">
+		{% for cocktail in cocktails %}
+		<div class="col">
+		  <div class="card h-100">
+			<img class="cocktail-item-image" src="{{ cocktail.image }}" alt="{{ cocktail.title }}">
+			<div class="card-body">
+			  <h5 class="card-title">{{ cocktail.title }}</h5>
+			  <p class="card-text">{{ cocktail.tags }}</p>
+			</div>
+			<div class="card-footer">
+			  <a href="{{ url_for('cocktail.cocktail', id=cocktail.id) }}" class="btn btn-primary">Рецепт</a>
+			</div>
+		  </div>
+		</div>
+	  
+	  {% endfor %}
+	</div>
