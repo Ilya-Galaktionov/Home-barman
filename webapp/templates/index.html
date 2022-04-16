@@ -1,34 +1,6 @@
-{%extends 'base.html' %}
-
-{% block title %}
-Home-Barman
-{% endblock %}
-
-{% block body %}
-
-<div class="container text-center">
- 
-</div>
-<div class="row">
-  <div class="col-12 text-center mt-2"><h3>Коктейли</h3></div>
-</div>
+{% extends 'base.html' %}
 
 
-<div class="card-group col-10 m-auto mt-2">
-<p class="cocktail"></p>
 
-  {% for cocktail in cocktails %}
-  <div class="card" style="width: 18rem;">
-    <img src="{{ cocktail.image }}" style="overflow: hidden;" class="card-img-top" alt="{{ cocktail.title }}">
-    <div class="card-body">
-      <h5 class="card-title">{{ cocktail.title }}</h5>
-      <p class="card-text">{{ cocktail.tags }}</p>
-        <a href="{{ url_for('cocktail.cocktail', id=cocktail.id) }}" class="btn btn-primary">Рецепт</a>
-    </div>
-  </div>
-  
-  {% endfor %}
-</div>
-    
-{% endblock %}
+
 

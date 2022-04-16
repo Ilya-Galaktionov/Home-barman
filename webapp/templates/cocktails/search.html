@@ -1,19 +1,24 @@
-<h1>{{ _('Search Results') }}</h1>
-    {% for cocktail in cocktails %}
-        {% include 'cocktail.html' %}
-    {% endfor %}
-    <nav aria-label="...">
-        <ul class="pager">
-            <li class="previous{% if not prev_url %} disabled{% endif %}">
-                <a href="{{ prev_url or '#' }}">
-                    <span aria-hidden="true">&larr;</span> {{ _('Previous results') }}
-                </a>
-            </li>
-            <li class="next{% if not next_url %} disabled{% endif %}">
-                <a href="{{ next_url or '#' }}">
-                    {{ _('Next results') }} <span aria-hidden="true">&rarr;</span>
-                </a>
-            </li>
-        </ul>
-    </nav>
-{% endblock %}
+{%extends 'base.html' %}
+
+	<div class="container text-center">
+	</div>
+	<div class="row">
+	  <div class="col-12 text-center mt-2"><h3>Вы искали: {{ searched }}</h3></div>
+	</div>
+	  <div class="row row-cols-1 row-cols-md-3 g-4 cocktail-grid">
+		{% for cocktail in cocktails %}
+		<div class="col">
+		  <div class="card h-100">
+			<img class="cocktail-item-image" src="{{ cocktail.image }}" alt="{{ cocktail.title }}">
+			<div class="card-body">
+			  <h5 class="card-title">{{ cocktail.title }}</h5>
+			  <p class="card-text">{{ cocktail.tags }}</p>
+			</div>
+			<div class="card-footer">
+			  <a href="{{ url_for('cocktail.cocktail', id=cocktail.id) }}" class="btn btn-primary">Рецепт</a>
+			</div>
+		  </div>
+		</div>
+	  
+	  {% endfor %}
+	</div>

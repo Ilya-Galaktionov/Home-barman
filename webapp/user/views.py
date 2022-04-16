@@ -1,6 +1,5 @@
-from flask import Blueprint, g, flash, render_template, redirect, url_for, request, current_app
-from flask_login import current_user, login_user, logout_user, login_required
-from webapp.cocktails.models import Cocktails
+from flask import Blueprint, flash, render_template, redirect, url_for
+from flask_login import current_user, login_user, logout_user
 
 
 from webapp.db import db
@@ -69,27 +68,3 @@ def process_reg():
                     error
                 ))
     return redirect(url_for('user.register'))
-
-
-@blueprint.before_app_request
-def before_request():
-    if current_user.is_authenticated:
-        db.session.commit()
-        g.search_form = SearchForm()
-    
-
-
-@blueprint.route('/search')
-@login_required
-def search():
-    if not g.search_form.validate():
-        return redirect(url_for('cocktail.index'))
-    page = request.args.get('page', 1, type=int)
-    cocktails, total = Cocktails.search(g.search_form.q.data, page,
-                               current_app.config['POSTS_PER_PAGE'])
-    next_url = url_for('cocktail.search', q=g.search_form.q.data, page=page + 1) \
-        if total > page * current_app.config['POSTS_PER_PAGE'] else None
-    prev_url = url_for('cocktail.search', q=g.search_form.q.data, page=page - 1) \
-        if page > 1 else None
-    return render_template('cocktail.html', title=_('Search'), cocktails=cocktails,
-                           next_url=next_url, prev_url=prev_url)

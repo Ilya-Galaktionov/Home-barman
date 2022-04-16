@@ -4,8 +4,7 @@ from webapp.db import db
 class Cocktails(db.Model):
     """Создает модель коктейля в БД
     """
-    __searchable__ = ['title']
-    
+
     id = db.Column(db.Integer, unique=True, primary_key=True)
     url = db.Column(db.String, unique=True, nullable=False)
     title = db.Column(db.String, unique=True)
