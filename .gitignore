@@ -1,8 +1,10 @@
 # Byte-compiled / optimized / DLL files
+config.py
 __pycache__/
 *.py[cod]
 *$py.class
 .vscode/
+*.db
 
 # C extensions
 *.so
@@ -128,6 +130,3 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
-
-# Configuration
-config.py

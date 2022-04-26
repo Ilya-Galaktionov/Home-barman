@@ -22,7 +22,9 @@ def recipe():
 @blueprint.route('/cocktail/<int:cocktail_id>')
 def single_cocktail(cocktail_id):
     my_cocktail = Cocktails.query.filter(Cocktails.id == cocktail_id).first()
-    return render_template('cocktails/single_cocktail.html', page_title=my_cocktail.title, my_cocktail=my_cocktail)
+    return render_template('cocktails/single_cocktail.html', page_title=my_cocktail.title,
+                            my_cocktail=my_cocktail)
+
 
 @blueprint.context_processor
 def base():
