@@ -42,6 +42,7 @@ def logout():
     flash('Вы успешно зарегестрировались')
     return redirect(url_for('cocktail.index'))
 
+
 @blueprint.route('/register')
 def register():
     if current_user.is_authenticated:
@@ -49,6 +50,7 @@ def register():
     title = 'Регистрация'
     form = RegistrationForm()
     return render_template('user/registration.html', page_title=title, form=form)
+
 
 @blueprint.route('/process-reg', methods=['POST'])
 def process_reg():
