@@ -1,7 +1,9 @@
+
 from flask import Blueprint, render_template, redirect, url_for
 from sqlalchemy.sql.expression import func
-from webapp.cocktails.models import Cocktails
+from webapp.cocktails.models import Cocktails, Tags
 from webapp.user.forms import SearchForm
+from webapp import db
 
 
 blueprint = Blueprint('cocktail', __name__)
@@ -18,12 +20,15 @@ def index():
 def recipe():
     return render_template('recipe.html')
 
-
 @blueprint.route('/cocktail/<int:cocktail_id>')
 def single_cocktail(cocktail_id):
     my_cocktail = Cocktails.query.filter(Cocktails.id == cocktail_id).first()
+    tags_list = []
+    if my_cocktail:
+        for tags in Tags.query.filter(Tags.cocktail_id == cocktail_id):
+            tags_list.append(tags)
     return render_template('cocktails/single_cocktail.html', page_title=my_cocktail.title,
-                            my_cocktail=my_cocktail)
+                            my_cocktail=my_cocktail, tags_list=tags_list)
 
 
 @blueprint.context_processor
@@ -44,3 +49,4 @@ def search():
                                searched=single_cocktail.searched, cocktails=cocktails)
     else:
         return redirect(url_for('cocktail.index'))
+

@@ -11,7 +11,13 @@
         <img class="cocktail-item-image" src="{{ cocktail.image }}" alt="{{ cocktail.title }}">
         <div class="card-body">
           <h5 class="card-title">{{ cocktail.title }}</h5>
-          <p class="card-text">{{ cocktail.tags }}</p>
+          <p class="card-text">
+            <ul>
+                {% for tags in cocktail.cocktail_tag|reverse %} 
+                <li class="tag"> {{ tags.tags }}</li>
+                {% endfor %}
+            </ul>
+          </p>
         </div>
         <div class="card-footer">
           <a href="{{ url_for('cocktail.single_cocktail', cocktail_id=cocktail.id) }}" class="btn btn-primary">Рецепт</a>

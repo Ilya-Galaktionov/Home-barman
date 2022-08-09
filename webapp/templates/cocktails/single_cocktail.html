@@ -26,15 +26,11 @@
       <div class="card h-100">
         <img class="cocktail-item-image" src="{{ my_cocktail.image }}" alt="{{ my_cocktail.title }}">
         <div class="card-body">
-          <h5 class="card-title">{{ my_cocktail.title }}</h5>
-          {% for item in my_cocktail.tags %}
-            {{ item }}
-          {% endfor %}
-          <br/>
-          <p class="card-text">{{ my_cocktail.ingredient }}</p>
-          <br/>
-          <p class="card-text">{{ my_cocktail.recipe }}</p>
-          <br/>
+            <ul>
+            {% for tags in tags_list|reverse %} 
+            <li class="tag"> {{ tags.tags }}</li>
+            {% endfor %}
+            </ul>
         </div>
       </div>
     </div>
