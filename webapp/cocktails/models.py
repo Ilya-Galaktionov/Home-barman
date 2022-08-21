@@ -9,6 +9,9 @@ class Cocktails(db.Model):
     title = db.Column(db.String, unique=True)
     image = db.Column(db.String, unique=True)
     cocktail_tag = db.relationship('Tags', backref='cocktails', lazy='joined')
+    cocktail_recipe = db.relationship('Recipe', backref='cocktails', lazy='joined')
+    cocktail_ingredients = db.relationship('Ingredients', backref='cocktails', lazy='joined')
+    cocktail_tools = db.relationship('Tools', backref='cocktails', lazy='joined')
 
     def __repr__(self):
         return f"Coctails {self.id} {self.title}"
