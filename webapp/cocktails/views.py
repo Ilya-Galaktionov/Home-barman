@@ -23,12 +23,8 @@ def recipe():
 @blueprint.route('/cocktail/<int:cocktail_id>')
 def single_cocktail(cocktail_id):
     my_cocktail = Cocktails.query.filter(Cocktails.id == cocktail_id).first()
-    tags_list = []
-    if my_cocktail:
-        for tags in Tags.query.filter(Tags.cocktail_id == cocktail_id):
-            tags_list.append(tags)
     return render_template('cocktails/single_cocktail.html', page_title=my_cocktail.title,
-                            my_cocktail=my_cocktail, tags_list=tags_list)
+                            my_cocktail=my_cocktail)
 
 
 @blueprint.context_processor

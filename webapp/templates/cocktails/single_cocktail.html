@@ -27,7 +27,7 @@
         <img class="cocktail-item-image" src="{{ my_cocktail.image }}" alt="{{ my_cocktail.title }}">
         <div class="card-body">
             <ul>
-            {% for tags in tags_list|reverse %} 
+            {% for tags in my_cocktail.cocktail_tag|reverse %} 
             <li class="tag"> {{ tags.tags }}</li>
             {% endfor %}
             </ul>
@@ -35,4 +35,48 @@
       </div>
     </div>
   </div>
+  <div class="ingredient-tables">
+    <table class="table">
+        <tbody>
+        <tr>
+            <th colspan="3">Необходимые ингредиенты</th>
+        </tr>
+        {% for ingredients in my_cocktail.cocktail_ingredients %}
+        <tr>
+            <td class="name"> {{ ingredients.ingredient }} </td>
+            <td class="amount"> {{ ingredients.amount }} </td>
+            <td class="unit"> {{ ingredients.unit }} </td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <table class="table">
+        <tbody>
+        <tr>
+            <th colspan="3">Необходимые штучки</th>
+        </tr>
+        {% for tools in my_cocktail.cocktail_tools %}
+        <tr>
+            <td class="name"> {{ tools.tool }} </td>
+            <td class="amount"> {{ tools.amount }} </td>
+            <td class="unit"> {{ tools.unit }} </td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+ </div>
+ <div>
+    <h2>
+        <span class="recipe-name">
+            Рецепт котетйля
+        </span>
+    </h2>
+    <ol class="steps">
+        {% for recipe in my_cocktail.cocktail_recipe %} 
+        <li> {{ recipe.recipe }}</li>
+        {% endfor %}
+    </ol>
+ </div>
+
+    
 </body>

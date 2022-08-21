@@ -32,3 +32,62 @@
     display: inline;
 
 }
+
+.ingredient-tables {
+    display: flex;
+    align-items: flex-start;
+    margin-top: 18px;
+    font-size: 18px;
+    line-height: 24px;
+}
+
+.name {
+    width: 100%;
+    height: 40px;
+    position: relative;
+    border-radius: 3px;
+    padding: 0;
+}
+
+.amount {
+    text-align: right;
+}
+
+.table {
+    width: 660px;
+    margin-left: 36px;
+}
+
+.recipe-name {
+    display: inline-block;
+    padding-bottom: 11px;
+    border-bottom: 2px solid #444;
+}
+
+.steps {
+    width: 700px;
+    font-size: 24px;
+    line-height: 27px;
+}
+
+.steps>li {
+    padding: 10px 0 10px 37px;
+    list-style: none;
+    counter-increment: recipe;
+}
+
+.steps>li:before {
+    position: absolute;
+    width: 60px;
+    margin-left: -68px;
+    content: counter(recipe, decimal-leading-zero) ".";
+    letter-spacing: 1px;
+    text-align: right;
+    color: #aaa;
+    -webkit-transform-origin: right center;
+    -ms-transform-origin: right center;
+    transform-origin: right center;
+    -webkit-transform: scale(0.85, 1);
+    -ms-transform: scale(0.85, 1);
+    transform: scale(0.85, 1);
+}
